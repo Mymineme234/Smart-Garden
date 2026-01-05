@@ -1,0 +1,66 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.5.8'
+	id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+description = 'Demo project for Spring Boot'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(21)
+	}
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	// JPA + Hibernate để làm việc với database thông qua Entity + Repository
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+	implementation 'org.json:json:20230227'
+
+	// Cung cấp REST API, HTTP, JSON, Controller
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+
+	// Hỗ trợ gửi email (dùng cho gửi OTP, thông báo,…)
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
+
+	// Bảo mật ứng dụng: login, xác thực, phân quyền
+	// implementation 'org.springframework.boot:spring-boot-starter-security'
+
+	// Thu thập metrics và gửi sang StatsD (dùng cho monitoring / observability)
+	implementation 'io.micrometer:micrometer-registry-statsd'
+
+	implementation 'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.2.5'
+
+	implementation 'com.google.code.gson:gson:2.10.1'
+
+	// Lombok giúp tự động tạo getter/setter/constructor --> giảm code boilerplate
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+
+	// Docker Compose support — giúp Spring Boot tự nhận cấu hình của docker-compose.yml
+	developmentOnly 'org.springframework.boot:spring-boot-docker-compose'
+
+	// Driver PostgreSQL, chỉ cần khi chạy
+	runtimeOnly 'org.postgresql:postgresql'
+
+	// Thư viện dùng cho unit test
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}

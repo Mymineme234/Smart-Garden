@@ -1,0 +1,2 @@
+VITE_API_URL=http://localhost:8080
+VITE_OPENWEATHER_KEY=your_real_api_key
